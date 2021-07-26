@@ -1,10 +1,13 @@
-const express = require('express');
-const consign = require('consign');
-
-const app = express();
-
-consign()
-    .include('controllers')
-    .into(app);
-
-app.listen(3000, () => console.log('server load port 3000'));
+const customExpress = require('./config/customExpress');
+const conexao = require('./infraestrutura/conexao');
+const Tabelas = require('./infraestrutura/Tabelas')
+conexao.connect((erro) => {
+    if (erro) {
+        console.log(erro);
+    } else {
+        console.log('server loaded.');
+        Tabelas.init(conexao);
+        const app = customExpress();
+        app.listen(3000, () => console.log('server load port 3000'));
+    }
+});
