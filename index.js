@@ -5,7 +5,7 @@ conexao.connect((erro) => {
     if (erro) {
         console.log(erro);
     } else {
-        console.log('server loaded.');
+        console.log('server iniciado.');
         Tabelas.init(conexao);
         const app = customExpress();
         app.listen(3000, () => console.log('server load port 3000'));
